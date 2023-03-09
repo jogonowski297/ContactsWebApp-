@@ -1,0 +1,87 @@
+﻿@model NetPC.Models.Domain.MultipleViews
+
+<h1>Add new contact</h1>
+<form action="addcontact" method="post" class="mt-5" id="AddForm">
+    <div class="mb-3">
+        <label for="" class="form-label">FirstName</label>
+        <input type="text" class="form-control" asp-for="Contact.FirstName">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">LastName</label>
+        <input type="text" class="form-control" asp-for="Contact.LastName">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Email</label>
+        <input type="text" class="form-control" asp-for="Contact.Email">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Password</label>
+        <input type="text" class="form-control" asp-for="Contact.Password">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Category</label>
+        <select asp-for="Category.SelectedOption" asp-items="@Model.Category.Options" class="form-control" id="categorySelect">
+            <option disabled selected value"> -- Wybierz kategorie -- </option>
+        </select>
+
+    </div>
+
+    <div class="mb-3" id="subcategoryDiv" style="display:none;">
+
+        <label for="" class="form-label">Subcategory</label>
+
+        <select asp-for="Subcategory.SelectedOption" asp-items="@Model.Subcategory.Options" class="form-control">
+            <option disabled selected value"> -- Wybierz podkategorie -- </option>
+
+        </select>
+        
+        
+
+    </div>
+
+    <div class="mb-3" id="subcategoryDivOther" style="display:none;">
+        <label for="" class="form-label">Subcategory (other)</label>
+        <input type="text" class="form-control" asp-for="Contact.Subcategory" placeholder="podkategoria">
+
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">PhoneNumber</label>
+        <input type="text" class="form-control" asp-for="Contact.PhoneNumber">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">DateOfBrith</label>
+        <input type="date" class="form-control" asp-for="Contact.DateOfBrith">
+        <span asp-validation-for="Contact.DateOfBrith" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
+
+@section Scripts {
+    <script>
+        var categorySelect = document.getElementById("categorySelect");
+        var subcategoryDiv = document.getElementById("subcategoryDiv");
+        var subcategoryDivOther = document.getElementById("subcategoryDivOther");
+        categorySelect.addEventListener("change", function () {
+            if (categorySelect.value === "6") {
+                subcategoryDivOther.style.display = "none";
+                subcategoryDiv.style.display = "block";
+            } else if (categorySelect.value === "8") {
+                subcategoryDiv.style.display = "none";
+                subcategoryDivOther.style.display = "block";
+            } else {
+                subcategoryDiv.style.display = "none";
+                subcategoryDivOther.style.display = "none";
+            }
+        });
+
+    </script>
+
+}

@@ -1,0 +1,75 @@
+﻿@model List<NetPC.Models.Domain.Contact>
+
+@{
+}
+
+<h1> Contacts </h1>
+
+ @if (User.Identity.IsAuthenticated)
+{
+    <a href="/contact/Contact/add">Add</a>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th></th>
+                <th></th>
+                <th></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model != null)
+        {
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td>@member.Id</td>
+                    <td>@member.FirstName</td>
+                    <td>@member.LastName</td>
+                    <td>@member.Email</td>
+                    <td>@member.PhoneNumber</td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <td><a href="/contact/Contact/@member.Id">Edit</a></td>
+                        <td><a href="/contact/Contact/view/@member.Id">View</a></td>
+                        <td><button onclick="deleteContact(@member.Id)">Delete</button></td>
+                    }
+
+                </tr>
+                }
+        }
+
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function deleteContact(id) {
+            fetch(`/contact/Contact/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // Do something with the response data
+                })
+                .catch(error => {
+                    console.error('There was a problem with the DELETE operation:', error);
+                });
+        }
+    </script>
+}

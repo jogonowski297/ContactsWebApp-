@@ -1,0 +1,94 @@
+﻿@model NetPC.Models.Domain.MultipleViews
+
+<h1>View Contact</h1>
+<form class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">Id</label>
+       
+        <p class="form-control">@Model.Contact.Id</p>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">FirstName</label>
+        
+        <p class="form-control">@Model.Contact.FirstName</p>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">LastName</label>
+        <p class="form-control">@Model.Contact.LastName</p>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Email</label>
+        <p class="form-control">@Model.Contact.Email</p>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">PasswordHash</label>
+        <p class="form-control">@Model.Contact.Password</p>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Category</label>
+        @{
+            if (Model.Contact.Category != "")
+            {
+                foreach (var category in Model.Category.Options)
+                {
+                    if (category.Value == Model.Contact.Category)
+                    {
+                        <p class="form-control">@category.Text</p>
+                    }
+                }
+
+            }
+            else
+            {
+                <p class="form-control">null</p>
+            }
+        }
+
+    </div>
+
+    <div class="mb-3" id="subcategoryDiv">
+
+        <label for="" class="form-label">Subcategory</label>
+        
+        @{
+            bool found = false;
+            if (Model.Contact.Subcategory != null)
+            {
+                foreach (var subCategory in Model.Subcategory.Options)
+                {
+                    if (subCategory.Value == Model.Contact.Subcategory)
+                    {
+                        <p class="form-control">@subCategory.Text</p>
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    <p class="form-control">@Model.Contact.Subcategory</p>
+                }
+
+            }
+            else
+            {
+                <p class="form-control">-----</p>
+            }
+        }
+
+
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">PhoneNumber</label>
+        <p class="form-control">@Model.Contact.PhoneNumber</p>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">DateOfBrith</label>
+        <p class="form-control">@Model.Contact.DateOfBrith</p>
+    </div>
+
+</form>
+

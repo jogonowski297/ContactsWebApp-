@@ -1,0 +1,34 @@
+﻿
+@model List<NetPC.Models.Domain.Contact>
+
+@{
+}
+
+<h1> Contacts </h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>@member.FirstName</td>
+                <td>@member.LastName</td>
+                <td>@member.Email</td>
+                <td>@member.PhoneNumber</td>
+                <td><a href="/Home/Contact/@member.Id">Edit</a></td>
+                <td><a href="/Home/ContactDelete/@member.Id">Delete</a></td>
+            </tr>
+
+        }
+    </tbody>
+</table>
